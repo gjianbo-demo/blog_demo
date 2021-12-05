@@ -1,0 +1,25 @@
+# !/usr/bin/sh
+
+version_flag=$1
+filename="version"
+
+
+if  [ ! -f "$filename" ]; then
+    touch "$filename"
+    if [ ! $version_flag ]; then
+        version_flag="1.0.1"
+    fi
+    echo "$version_flag">>"$filename"
+else
+    version=`head  -n +1 "$filename"`
+fi
+
+if [ $version_flag ] && [ $version_flag!=$version ]; then
+    echo "$version_flag">"$filename"
+    version=$version_flag
+fi
+
+#echo $version
+
+
+go build -ldflags "-X main.buildTime=`date +%Y-%m-%d,%H:%M:%S` -X main.buildVersion=$version -X main.gitCommitID=`git rev-parse HEAD`"  ./cmd/blog_service
