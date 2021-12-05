@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -9,6 +11,13 @@ import (
 	"gitee.com/gjianbo/web/internal/routers"
 	"gitee.com/gjianbo/web/pkg/setting"
 	"github.com/gin-gonic/gin"
+)
+
+var (
+	isVersion    bool
+	buildTime    string
+	buildVersion string
+	gitCommitID  string
 )
 
 func SetupSetting() error {
@@ -35,6 +44,9 @@ func SetupSetting() error {
 	global.ServetSettingS.ReadTimeout *= time.Second
 	global.ServetSettingS.WriteTimtout *= time.Second
 
+	flag.BoolVar(&isVersion, "version", false, "编译信息")
+	flag.Parse()
+
 	return nil
 }
 func init() {
@@ -47,6 +59,12 @@ func init() {
 }
 func main() {
 
+	if isVersion {
+		fmt.Printf("build_time: %s\r\n", buildTime)
+		fmt.Printf("build_version: %s\r\n", buildVersion)
+		fmt.Printf("git_commit_id: %s\r\n", gitCommitID)
+		return
+	}
 	gin.SetMode(global.ServetSettingS.RunMode)
 
 	routrer := routers.NewRouter()
