@@ -2,5 +2,5 @@
 .idea
 go.sum
 web
-./blog_service
 version
+blog_service
