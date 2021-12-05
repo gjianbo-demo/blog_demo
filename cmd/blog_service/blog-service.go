@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"gitee.com/gjianbo/web/global"
+	"gitee.com/gjianbo/web/internal/model"
 	"gitee.com/gjianbo/web/internal/routers"
 	"gitee.com/gjianbo/web/pkg/setting"
 	"github.com/gin-gonic/gin"
@@ -20,7 +21,7 @@ var (
 	gitCommitID  string
 )
 
-func SetupSetting() error {
+func setupSetting() error {
 
 	setting, err := setting.NewSetting()
 	if err != nil {
@@ -44,17 +45,31 @@ func SetupSetting() error {
 	global.ServetSettingS.ReadTimeout *= time.Second
 	global.ServetSettingS.WriteTimtout *= time.Second
 
-	flag.BoolVar(&isVersion, "version", false, "编译信息")
-	flag.Parse()
-
 	return nil
 }
+
+func setupDBEngine() error {
+
+	var err error
+	global.DBEngine, err = model.NewDBEngine(global.DatabaseSettings)
+
+	return err
+}
+
 func init() {
 
-	err := SetupSetting()
+	err := setupSetting()
 	if err != nil {
 		log.Fatalf("init.setupSetting err:%v", err)
 	}
+
+	err = setupDBEngine()
+	if err != nil {
+		log.Fatalf("init.setupSetting err:%v", err)
+	}
+
+	flag.BoolVar(&isVersion, "version", false, "编译信息")
+	flag.Parse()
 
 }
 func main() {

@@ -8,9 +8,12 @@ import (
 	"time"
 
 	"gitee.com/gjianbo/web/global"
+	"gitee.com/gjianbo/web/internal/model"
 	"gitee.com/gjianbo/web/internal/routers"
+	"gitee.com/gjianbo/web/pkg/logger"
 	"gitee.com/gjianbo/web/pkg/setting"
 	"github.com/gin-gonic/gin"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 var (
@@ -20,7 +23,8 @@ var (
 	gitCommitID  string
 )
 
-func SetupSetting() error {
+// 设置配置文件
+func setupSetting() error {
 
 	setting, err := setting.NewSetting()
 	if err != nil {
@@ -44,17 +48,49 @@ func SetupSetting() error {
 	global.ServetSettingS.ReadTimeout *= time.Second
 	global.ServetSettingS.WriteTimtout *= time.Second
 
-	flag.BoolVar(&isVersion, "version", false, "编译信息")
-	flag.Parse()
-
 	return nil
 }
+
+// 设置数据库连接
+func setupDBEngine() error {
+
+	var err error
+	global.DBEngine, err = model.NewDBEngine(global.DatabaseSettings)
+
+	return err
+}
+
+// 设置日志记录
+func setupLogger() error {
+	fileName := global.AppSettingS.LogSavePath + "/" + global.AppSettingS.LogFileName + global.AppSettingS.LogFileExt
+	global.Logger = logger.NewLogger(&lumberjack.Logger{
+		Filename:  fileName,
+		MaxSize:   600,
+		MaxAge:    10,
+		LocalTime: true,
+	}, "", log.LstdFlags).WitchCaller(2)
+	return nil
+}
+
 func init() {
 
-	err := SetupSetting()
+	err := setupSetting()
 	if err != nil {
 		log.Fatalf("init.setupSetting err:%v", err)
 	}
+
+	err = setupDBEngine()
+	if err != nil {
+		log.Fatalf("init.setupDBEngine err:%v", err)
+	}
+	err = setupLogger()
+	if err != nil {
+		log.Fatalf("init.setupLogger err:%v", err)
+
+	}
+
+	flag.BoolVar(&isVersion, "version", false, "编译信息")
+	flag.Parse()
 
 }
 func main() {
@@ -75,6 +111,9 @@ func main() {
 		WriteTimeout:   global.ServetSettingS.WriteTimtout,
 		MaxHeaderBytes: 1 << 20,
 	}
+
+	// 测试记录日志
+	global.Logger.Infof("%s: blog-service/%s", "gjianbo", "blog_service")
 
 	s.ListenAndServe()
 	/* 	r := gin.Default()

@@ -1,0 +1,6 @@
+2021/12/05 18:14:52 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638699292205210813}
+2021/12/05 18:43:37 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701017199715037}
+2021/12/05 18:46:21 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701181673459191}
+2021/12/05 18:47:28 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701248611974740}
+2021/12/05 18:49:20 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701360586190191}
+2021/12/05 18:50:29 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701429766522014}
