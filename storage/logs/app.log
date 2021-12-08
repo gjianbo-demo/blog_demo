@@ -4,3 +4,4 @@
 2021/12/05 18:47:28 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701248611974740}
 2021/12/05 18:49:20 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701360586190191}
 2021/12/05 18:50:29 {"callers":["/home/gjianbo/work/go/web/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638701429766522014}
+2021/12/08 21:57:06 {"callers":["D:/goproject/blog_demo/main.go :86 main.init.0"],"level":"info","message":"gjianbo: blog-service/blog_service","time":1638971826089161600}

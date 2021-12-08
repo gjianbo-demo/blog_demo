@@ -1,6 +1,7 @@
 package routers
 
 import (
+	"gitee.com/gjianbo/web/internal/middleware"
 	v1 "gitee.com/gjianbo/web/internal/routers/api/v1"
 	"github.com/gin-gonic/gin"
 )
@@ -10,6 +11,7 @@ func NewRouter() *gin.Engine {
 	r := gin.New()
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
+	r.Use(middleware.Translations())
 
 	article := v1.NewArticle()
 	tag := v1.NewTag()

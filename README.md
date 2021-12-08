@@ -82,3 +82,8 @@ go get -u github.com/alecthomas/template
 ```
 
 
+## 接口验证
+```
+go get -u github.com/go-playground/validator/v10
+```
+

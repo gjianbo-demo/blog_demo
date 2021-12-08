@@ -79,10 +79,10 @@ func init() {
 		log.Fatalf("init.setupSetting err:%v", err)
 	}
 
-	err = setupDBEngine()
+	/*err = setupDBEngine()
 	if err != nil {
 		log.Fatalf("init.setupDBEngine err:%v", err)
-	}
+	}*/
 	err = setupLogger()
 	if err != nil {
 		log.Fatalf("init.setupLogger err:%v", err)
