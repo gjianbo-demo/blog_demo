@@ -9,6 +9,15 @@ App:
   LogSavePath: storage/logs
   LogFileName: app
   LogFileExt: .log
+
+  UploadSavePath: storage/uploads
+  UploadServerUrl: http://127.0.0.1:8000:satic
+  UploadImageMaxSize: 5 #MB
+  UploadImageAllowExts:
+    - .jpg
+    - .png
+    - .jpeg
+
 Database:
   DBType: mysql
   Username: root # 用户名
